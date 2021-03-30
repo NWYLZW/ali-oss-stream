@@ -18,6 +18,7 @@
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
+coverage/
 node_modules/
 lib/
 dist/

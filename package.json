@@ -15,7 +15,7 @@
     "build:umd": "rollup -c --environment FORMAT:umd",
     "build:min": "rollup -c --environment FORMAT:min",
     "build:dec": "tsc -p . --declaration --emitDeclarationOnly",
-    "lint": "eslint 'src/**/*.{js,ts}'",
+    "lint": "eslint src/**/*.{js,ts}",
     "test": "jest --coverage --verbose -u"
   },
   "husky": {

@@ -1,0 +1,8 @@
+.*
+AUTHORS
+*.lock
+
+.github
+.idea
+src
+test
