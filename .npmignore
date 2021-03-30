@@ -1,4 +1,8 @@
 .*
+jest.config.js
+rollup.config.js
+api-extractor.json
+tsconfig.json
 AUTHORS
 *.lock
 
@@ -6,3 +10,4 @@ AUTHORS
 .idea
 src
 test
+coverage
