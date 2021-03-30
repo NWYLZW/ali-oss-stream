@@ -14,7 +14,7 @@
     "build:esm": "rollup -c --environment FORMAT:esm",
     "build:umd": "rollup -c --environment FORMAT:umd",
     "build:min": "rollup -c --environment FORMAT:min",
-    "build:dec": "tsc --declaration -p . --emitDeclarationOnly",
+    "build:dec": "tsc -p . --declaration --emitDeclarationOnly",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "test": "jest --coverage --verbose -u"
   },
