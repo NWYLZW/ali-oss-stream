@@ -1,0 +1,28 @@
+# Created by https://www.gitignore.io/api/vuejs,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=vuejs,visualstudiocode
+
+### WebStorm ###
+.idea
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+lib/
+dist/
+*.log
+*.lock
+*.temp
+
+# End of https://www.gitignore.io/api/vuejs,visualstudiocode
