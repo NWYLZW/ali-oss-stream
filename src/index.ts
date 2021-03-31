@@ -1,5 +1,1 @@
-import imgHelper from '@ali-oss-stream/helpers/ImgHelper'
-
-export {
-  imgHelper
-}
+export * from 'ali-oss-stream/helpers/ImgHelper'

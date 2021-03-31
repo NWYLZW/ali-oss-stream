@@ -4,8 +4,8 @@ import * as path from "path"
 const config: Config.InitialOptions = {
   verbose: true,
   moduleNameMapper: {
-    '@ali-oss-stream/(.*)': path.join(__dirname, './src/$1'),
-    '@ali-oss-stream': path.join(__dirname, './src/index')
+    'ali-oss-stream/(.*)': path.join(__dirname, './src/$1'),
+    'ali-oss-stream': path.join(__dirname, './src/index')
   },
   transform: {
     '^.+\\.tsx?$': 'ts-jest',

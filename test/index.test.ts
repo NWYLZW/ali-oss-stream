@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { imgHelper } from '@ali-oss-stream'
+import { imgHelper } from 'ali-oss-stream'
 
 describe('AliOssStream:', () => {
   describe('helpers', () => {

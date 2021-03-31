@@ -1,5 +1,6 @@
-import Stream from "@ali-oss-stream/core/stream"
-import Action from "@ali-oss-stream/core/action"
+import Stream from 'ali-oss-stream/core/stream'
+import Action from 'ali-oss-stream/core/action'
+import { Helper } from 'ali-oss-stream/helpers/index'
 
 // [阿里oss参考文档](https://help.aliyun.com/document_detail/44688.htm?spm=a2c4g.11186623.2.8.5b7ff2ee8dxQ8X#title-dz0-c5s-ulp)
 export type ResizeMode =
@@ -38,7 +39,7 @@ type actions =
 
 class ImageAction extends Action<actions> {}
 
-class ImageStream extends Stream<string> {
+export class ImageStream extends Stream<string> {
   protected actions: Array<ImageAction> = []
   protected preEnd(): void {
     if (this.actions.length > 0) {
@@ -49,7 +50,7 @@ class ImageStream extends Stream<string> {
     }
   }
 
-  resize (option: resizeOptions) {
+  resize (option: resizeOptions): ImageStream {
     const params = []
     for (const optionKey in option) {
       params.push(`${optionKey}_${option[optionKey]}`)
@@ -61,6 +62,5 @@ class ImageStream extends Stream<string> {
   }
 }
 
-export default (url: string): ImageStream => {
-  return new ImageStream(url)
-}
+export const imgHelper: Helper<string, ImageStream>
+  = (url: string): ImageStream => new ImageStream(url)
