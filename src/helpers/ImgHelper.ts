@@ -61,8 +61,6 @@ class ImageStream extends Stream<string> {
   }
 }
 
-export default class ImgHelper {
-  static init(url: string): ImageStream {
-    return new ImageStream(url)
-  }
+export default (url: string): ImageStream => {
+  return new ImageStream(url)
 }
