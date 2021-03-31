@@ -1,5 +1,5 @@
-import Stream from "@/core/stream"
-import Action from "@/core/action"
+import Stream from "@ali-oss-stream/core/stream"
+import Action from "@ali-oss-stream/core/action"
 
 // [阿里oss参考文档](https://help.aliyun.com/document_detail/44688.htm?spm=a2c4g.11186623.2.8.5b7ff2ee8dxQ8X#title-dz0-c5s-ulp)
 export type ResizeMode =
