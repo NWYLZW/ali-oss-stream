@@ -18,10 +18,10 @@
 ### Vuejs ###
 # Recommended template: Node.gitignore
 
-coverage/
 node_modules/
+coverage/
+temp/
 lib/
-dist/
 *.log
 *.lock
 *.temp
