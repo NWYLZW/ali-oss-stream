@@ -30,9 +30,9 @@
 * 调整图片大小为`50px`
 
 ```javascript
-import AliOssStream from 'ali-oss-stream'
+import { imgHelper } from '@ali-oss-stream'
 
-const url = AliOssStream.helpers.img.init(
+const url = imgHelper(
   'https://image-demo.oss-cn-hangzhou.aliyuncs.com/smile.jpg'
 ).resize({ w: 50 }).end()
 console.log(url)
