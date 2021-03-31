@@ -7,7 +7,7 @@
 import * as path from 'path'
 import merge from 'lodash.merge'
 
-import { uglify } from 'rollup-plugin-uglify'
+import { terser } from 'rollup-plugin-terser'
 
 import json from 'rollup-plugin-json'
 import { eslint } from 'rollup-plugin-eslint'
@@ -42,7 +42,7 @@ const jobs = {
       format: 'umd',
       file: resolve(pkg.main.replace(/(.\w+)$/, '.min$1'))
     },
-    plugins: [ uglify() ]
+    plugins: [ terser() ]
   }
 }
 
