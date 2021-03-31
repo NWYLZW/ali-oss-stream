@@ -11,6 +11,6 @@ const config: Config.InitialOptions = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
-  moduleFileExtensions: [ 'ts', 'json' ],
+  moduleFileExtensions: [ 'ts', 'js', 'json' ],
 };
 export default config;
