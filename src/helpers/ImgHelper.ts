@@ -40,7 +40,7 @@ class ImageAction extends Action<actions> {}
 
 class ImageStream extends Stream<string> {
   protected actions: Array<ImageAction> = []
-  protected preEnd(): any {
+  protected preEnd(): void {
     if (this.actions.length > 0) {
       this.ctx += '?x-oss-process=image'
       this.actions.forEach(
@@ -51,7 +51,7 @@ class ImageStream extends Stream<string> {
 
   resize (option: resizeOptions) {
     const params = []
-    for (let optionKey in option) {
+    for (const optionKey in option) {
       params.push(`${optionKey}_${option[optionKey]}`)
     }
     this.actions.push({
