@@ -1,16 +1,15 @@
-/**
- * @desc   index.test.ts
- * @author yijie
- * @date   2021-03-30 14:54
- * @notes  2021-03-30 14:54 yijie 创建了 index.test.ts 文件
- */
 import assert from 'assert'
-import index from '../src'
+import AliOssStream from '@ali-oss-stream'
 
-describe('validate:', () => {
-  describe('rollup', () => {
-    test(' return hello rollup ', () => {
-      assert.strictEqual(index('rollup'), 'hello rollup')
+describe('AliOssStream:', () => {
+  describe('helpers', () => {
+    test('img helper resize w to 50', () => {
+      assert.strictEqual(
+        AliOssStream.helpers.img.init(
+          'https://image-demo.oss-cn-hangzhou.aliyuncs.com/smile.jpg'
+        ).resize({ w: 50 }).end(),
+        'https://image-demo.oss-cn-hangzhou.aliyuncs.com/smile.jpg?x-oss-process=image/resize,w_50'
+      )
     })
   })
 })
