@@ -7,11 +7,14 @@
 import * as path from 'path'
 import merge from 'lodash.merge'
 
-import { eslint } from 'rollup-plugin-eslint'
-import babel from 'rollup-plugin-babel'
-import json from 'rollup-plugin-json'
-import nodeResolve from 'rollup-plugin-node-resolve'
 import { uglify } from 'rollup-plugin-uglify'
+
+import json from 'rollup-plugin-json'
+import { eslint } from 'rollup-plugin-eslint'
+import commonjs from 'rollup-plugin-commonjs'
+import nodeResolve from 'rollup-plugin-node-resolve'
+import typescript from 'rollup-plugin-typescript2'
+import babel from 'rollup-plugin-babel'
 
 import pkg from './package.json'
 
@@ -54,9 +57,19 @@ export default merge({
       include: [ 'src/**/*.ts' ],
       exclude: [ 'node_modules/**', 'lib/**', '*.js' ],
     }),
+    commonjs(),
     nodeResolve({
       extensions,
-      modulesOnly: true
+      modulesOnly: true,
+      customResolveOptions: {
+        moduleDirectory: 'node_modules'
+      }
+    }),
+    typescript({
+      tsconfig: 'tsconfig.json',
+      tsconfigOverride: {
+        compilerOptions : { module: "esnext" }
+      }
     }),
     babel({
       runtimeHelpers: true,
