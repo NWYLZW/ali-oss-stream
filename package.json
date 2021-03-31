@@ -4,6 +4,11 @@
   "description": "ali oss 服务流式操作",
   "author": "yijie",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NWYLZW/ali-oss-stream.git"
+  },
+  "homepage": "https://github.com/NWYLZW/ali-oss-stream#readme",
   "main": "lib/index.umd.js",
   "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
@@ -27,6 +32,9 @@
     "*./src/**/*.{js,ts,json,md}": [
       "yarn lint"
     ]
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -55,5 +63,8 @@
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"
-  }
+  },
+  "keywords": [
+    "modules", "ali oss", "util", "tool", "stream"
+  ]
 }
