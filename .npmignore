@@ -10,4 +10,5 @@ AUTHORS
 .idea
 src
 test
+temp
 coverage
