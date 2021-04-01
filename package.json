@@ -14,9 +14,9 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "prepare": "husky install",
-    "api": "api-extractor run",
+    "api": "yarn build:dec && api-extractor run && rimraf -g \"lib/{core,helpers}/\"",
     "dev": "rollup -w -c --environment FORMAT:esm",
-    "build": "rimraf lib/* && run-p build:esm build:umd build:min build:dec",
+    "build": "rimraf lib/* && run-p build:esm build:umd build:min && yarn api",
     "build:esm": "rollup -c --environment FORMAT:esm",
     "build:umd": "rollup -c --environment FORMAT:umd",
     "build:min": "rollup -c --environment FORMAT:min",
