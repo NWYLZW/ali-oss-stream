@@ -1,1 +1,1 @@
-export * from 'ali-oss-stream/helpers/ImgHelper'
+export * from './helpers/ImgHelper'
