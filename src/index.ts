@@ -1,1 +1,1 @@
-export * from './helpers/ImgHelper'
+export { imgHelper } from './helpers/ImgHelper'
