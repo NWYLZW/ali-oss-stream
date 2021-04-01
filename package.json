@@ -13,6 +13,7 @@
   "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
   "scripts": {
+    "prepare": "husky install",
     "api": "api-extractor run",
     "dev": "rollup -w -c --environment FORMAT:esm",
     "build": "rimraf lib/* && run-p build:esm build:umd build:min build:dec",
