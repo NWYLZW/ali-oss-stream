@@ -8,7 +8,7 @@ describe('img helper', () => {
       assert.strictEqual(
         imgHelper(url)
           .pushAction('resize', { w: 12 })
-          .end(), `${url}?__date__=2021-04-11`
+          .end(), `${url}?x-oss-process=image/resize,w_12`
       )
     })
   })
