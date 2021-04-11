@@ -36,7 +36,28 @@ type ResizeOptions = {
   color?: string
 } & Options
 
-type WatermarkOptions = {} & Options
+
+type watermarkGrid =
+  'nw' | 'north' | 'ne' | 'west'
+  | 'center' | 'east' | 'sw' | 'south' | 'se'
+/**
+ * [图片水印](https://help.aliyun.com/document_detail/44957.html?spm=a2c4g.11186623.6.750.7ee958cdjWYFqC)
+ *
+ * 您可以通过图片水印参数，为您存储在OSS中的图片文件增加水印文字或水印图。本文介绍为图片添加水印时所用到的参数及示例。
+ *
+ * - t [0, 100] 指定图片水印或水印文字的透明度。
+ * - g { watermarkGrid } 指定水印在图片中的位置。
+ * - x [0, 4096] 指定水印的水平边距， 即距离图片边缘的水平距离。这个参数只有当水印位置是左上、左中、左下、右上、右中、右下才有意义。
+ * - y [0, 4096] 指定水印的垂直边距，即距离图片边缘的垂直距离， 这个参数只有当水印位置是左上、中上、右上、左下、中下、右下才有意义。
+ * - voffset [-1000, 1000] 指定水印的中线垂直偏移。当水印位置在左中、中部、右中时，可以指定水印位置根据中线往上或者往下偏移。
+ */
+type WatermarkOptions = {
+  t: number
+  g: watermarkGrid
+  x: number
+  y: number
+  voffset: number
+} & Options
 
 /**
  * [可选择的action类型](https://help.aliyun.com/document_detail/183902.html?spm=a2c4g.11186623.6.746.68eb7fd8lmUm0t#title-cya-7jq-mzs)
@@ -146,13 +167,23 @@ export class ImageStream extends Stream<string> {
   pushAction = this.pushOptions
 
   /**
-   * [阿里oss 图片缩放参考文档](https://help.aliyun.com/document_detail/44688.htm?spm=a2c4g.11186623.2.8.5b7ff2ee8dxQ8X#title-dz0-c5s-ulp)
+   * [缩放](https://help.aliyun.com/document_detail/44688.htm?spm=a2c4g.11186623.2.8.5b7ff2ee8dxQ8X#title-dz0-c5s-ulp)
    *
    * @param resizeOptions - 缩放配置参数
    * @return ImageStream
    */
   resize(resizeOptions: ResizeOptions): ImageStream {
     return this.pushAction('resize', resizeOptions)
+  }
+
+  /**
+   * [水印](https://help.aliyun.com/document_detail/44957.html?spm=a2c4g.11186623.6.750.7ee958cdjWYFqC#title-4ee-3c9-s0t)
+   *
+   * @param watermarkOptions - 水印配置参数
+   * @return ImageStream
+   */
+  watermark(watermarkOptions: WatermarkOptions): ImageStream {
+    return this.pushAction('watermark', watermarkOptions)
   }
 }
 
