@@ -1,5 +1,5 @@
 import Stream from '../core/stream'
-import Action from '../core/action'
+import Action, { ItfAction } from '../core/action'
 import { Helper } from './index'
 
 /**
@@ -13,6 +13,8 @@ import { Helper } from './index'
  */
 export type ResizeMode = 'lfit' | 'mfit' | 'fill' | 'pad' | 'fixed'
 
+export type Options = Record<string, number | string | boolean | undefined>
+
 /**
  * 调整大小配置参数
  *
@@ -24,15 +26,17 @@ export type ResizeMode = 'lfit' | 'mfit' | 'fill' | 'pad' | 'fixed'
  * - 'limit' 指定当目标缩放图大于原图时是否进行缩放。
  * - 'color' 当缩放模式选择为pad（缩放填充）时，可以设置填充的颜色。
  */
-type resizeOptions = {
-  [key: string]: number | string | boolean | undefined
-  m?: ResizeMode,
-  w?: number, h?: number,
-  l?: number,
-  s?: number,
-  limit?: boolean,
+type ResizeOptions = {
+  m?: ResizeMode
+  w?: number
+  h?: number
+  l?: number
+  s?: number
+  limit?: boolean
   color?: string
-}
+} & Options
+
+type WatermarkOptions = {} & Options
 
 /**
  * [可选择的action类型](https://help.aliyun.com/document_detail/183902.html?spm=a2c4g.11186623.6.746.68eb7fd8lmUm0t#title-cya-7jq-mzs)
@@ -55,40 +59,100 @@ type resizeOptions = {
  * - 'average-hue'     获取图片主色调。
  * - 'info'            获取图片信息，包括基本信息、EXIF信息。
  */
-type actions =
+type Actions =
   'format' | 'resize' | 'circle' | 'crop' | 'indexcrop' |
   'rounded-corners' | 'auto-orient' | 'rotate' | 'blur' |
   'bright' | 'sharpen' | 'contrast' | 'interlace' | 'quality' |
   'watermark' | 'average-hue' | 'info'
 
-class ImageAction extends Action<actions> {}
+type OptionsMap<A = Actions> =
+  A extends 'resize'?
+    ResizeOptions :
+  A extends 'watermark'?
+    WatermarkOptions :
+    Options
+
+type ImageAction = ItfAction<Actions>
 
 export class ImageStream extends Stream<string> {
   protected actions: Array<ImageAction> = []
+  protected queries: Record<string, string> = {}
+
   protected preEnd(): void {
+    if (this.ctx === undefined) return
+
     if (this.actions.length > 0) {
       this.ctx += '?x-oss-process=image'
       this.actions.forEach(
         action => this.ctx += '/' + Action.toString(action)
       )
     }
+    if (this.queries !== {}) {
+      if (!/\?x-oss-process=image.*$/.test(this.ctx)) {
+        this.ctx += '?'
+        for (const queriesKey in this.queries) {
+          this.ctx += `${queriesKey}=${this.queries[queriesKey]}&`
+        }
+        this.ctx = this.ctx.slice(0, this.ctx.length - 1)
+      } else {
+        for (const queriesKey in this.queries) {
+          this.ctx += `&${queriesKey}=${this.queries[queriesKey]}`
+        }
+      }
+    }
   }
+
+  /**
+   * 添加一个query
+   *
+   * @param key 键名
+   * @param val 键值
+   */
+  pushQuery(key: string, val: string): ImageStream {
+    this.queries[key] = val
+    return this
+  }
+
+  /**
+   * 添加queries
+   *
+   * @param queries queries字典
+   */
+  pushQueries(queries: Record<string, string>): ImageStream {
+    this.queries = {
+      ...this.queries, ...queries
+    }
+    return this
+  }
+
+  /**
+   * 添加options
+   *
+   * @param name    options的类型
+   * @param options 配置参数
+   */
+ pushOptions<A extends Actions>(name: A, options: OptionsMap<A>): ImageStream {
+    const params = []
+    for (const optionKey in options) {
+      params.push(`${optionKey}_${options[optionKey]}`)
+    }
+    this.actions.push({ name, params })
+    return this
+  }
+
+  /**
+   * 重载 pushOptions
+   */
+  pushAction = this.pushOptions
 
   /**
    * [阿里oss 图片缩放参考文档](https://help.aliyun.com/document_detail/44688.htm?spm=a2c4g.11186623.2.8.5b7ff2ee8dxQ8X#title-dz0-c5s-ulp)
    *
-   * @param option - 缩放配置参数
+   * @param resizeOptions - 缩放配置参数
    * @return ImageStream
    */
-  resize (option: resizeOptions): ImageStream {
-    const params = []
-    for (const optionKey in option) {
-      params.push(`${optionKey}_${option[optionKey]}`)
-    }
-    this.actions.push({
-      name: 'resize', params: params
-    })
-    return this
+  resize(resizeOptions: ResizeOptions): ImageStream {
+    return this.pushAction('resize', resizeOptions)
   }
 }
 

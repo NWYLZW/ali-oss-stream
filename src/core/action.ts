@@ -1,8 +1,10 @@
-export default class Action<T extends string> {
-  name: T | undefined
-  params: Array<string> = []
+export interface ItfAction<T extends string> {
+  name: T
+  params: Array<string>
+}
 
-  static toString(t: Action<string>): string {
+export default class Action {
+  static toString<T extends string>(t: ItfAction<T>): string {
     return `${t.name},${t.params.join(',')}`
   }
 }
