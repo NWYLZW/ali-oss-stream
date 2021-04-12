@@ -36,17 +36,15 @@ type ResizeOptions = {
   color?: string
 } & Options
 
-
 type watermarkGrid =
-  'nw' | 'north' | 'ne' | 'west'
-  | 'center' | 'east' | 'sw' | 'south' | 'se'
+  'nw' | 'north' | 'ne' | 'west' | 'center' | 'east' | 'sw' | 'south' | 'se'
 /**
  * [图片水印](https://help.aliyun.com/document_detail/44957.html?spm=a2c4g.11186623.6.750.7ee958cdjWYFqC)
  *
  * 您可以通过图片水印参数，为您存储在OSS中的图片文件增加水印文字或水印图。本文介绍为图片添加水印时所用到的参数及示例。
  *
  * - t [0, 100] 指定图片水印或水印文字的透明度。
- * - g { watermarkGrid } 指定水印在图片中的位置。
+ * - g 指定水印在图片中的位置。
  * - x [0, 4096] 指定水印的水平边距， 即距离图片边缘的水平距离。这个参数只有当水印位置是左上、左中、左下、右上、右中、右下才有意义。
  * - y [0, 4096] 指定水印的垂直边距，即距离图片边缘的垂直距离， 这个参数只有当水印位置是左上、中上、右上、左下、中下、右下才有意义。
  * - voffset [-1000, 1000] 指定水印的中线垂直偏移。当水印位置在左中、中部、右中时，可以指定水印位置根据中线往上或者往下偏移。
@@ -126,8 +124,8 @@ export class ImageStream extends Stream<string> {
   /**
    * 添加一个query
    *
-   * @param key 键名
-   * @param val 键值
+   * @param key - 键名
+   * @param val - 键值
    */
   pushQuery(key: string, val: string): ImageStream {
     this.queries[key] = val
@@ -137,7 +135,7 @@ export class ImageStream extends Stream<string> {
   /**
    * 添加queries
    *
-   * @param queries queries字典
+   * @param queries - queries字典
    */
   pushQueries(queries: Record<string, string>): ImageStream {
     this.queries = {
@@ -149,8 +147,8 @@ export class ImageStream extends Stream<string> {
   /**
    * 添加options
    *
-   * @param name    options的类型
-   * @param options 配置参数
+   * @param name    - options的类型
+   * @param options - 配置参数
    */
  pushOptions<A extends Actions>(name: A, options: OptionsMap<A>): ImageStream {
     const params = []
