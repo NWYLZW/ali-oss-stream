@@ -1,6 +1,6 @@
 {
   "name": "ali-oss-stream",
-  "version": "1.0.8",
+  "version": "1.0.9-rc",
   "description": "ali oss 服务流式操作",
   "author": "yijie",
   "license": "MIT",
